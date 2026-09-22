@@ -1,42 +1,5 @@
-// FILE INI NTAR HAPUS AJA
-
 // SECTION IMPORTS
-const usageStore = require('../data/usageStore');
-
-// SECTION CONTROLLERS
-function createUsage(req, res) {
-    const { subscriberId, callMinutes, smsCount, dataUsageMB } = req.body ?? {};
-
-    // SECTION VALIDATION
-    if (!subscriberId || callMinutes == null || smsCount == null || dataUsageMB == null) {
-        return res.status(400).json({ error: 'Missing required fields' });
-    }
-
-    const record = usageStore.addUsage({
-        subscriberId,
-        callMinutes,
-        smsCount,
-        dataUsageMB,
-    });
-
-    return res.status(201).json(record);
-}
-
-// GET ALL USAGE
-function getUsage(res) {
-    const records = usageStore.getAllUsage();
-
-    return res.status(200).json(records);
-}
-
-// GET USAGE BY SUBSCRIBER ID
-function getUsageBySubscriberId(req, res) {
-    const { subscriberId } = req.query;
-
-    const records = subscriberId ? usageStore.getUsageBySubscriber(subscriberId) : usageStore.getAllUsage();
-
-    return res.status(200).json(records);
-}
+const usageStore = require('../../data/usageStore');
 
 function updateUsage(req, res) {
     const id = Number(req.params.id);
@@ -115,30 +78,6 @@ function updateUsage(req, res) {
     return res.status(200).json(record);
 }
 
-function deleteUsage(req, res) {
-    const id = Number(req.params.id);
-
-    if (!Number.isSafeInteger(id) || id <= 0) {
-        return res.status(400).json({
-            error: 'ID must be a positive integer',
-        });
-    }
-
-    const deleted = usageStore.deleteUsageById(id);
-
-    if (!deleted) {
-        return res.status(404).json({
-            error: 'Usage record not found',
-        });
-    }
-
-    return res.status(204).send();
-}
-
 module.exports = {
-    getUsage,
-    getUsageBySubscriberId,
-    createUsage,
     updateUsage,
-    deleteUsage,
 };
