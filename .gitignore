@@ -2,3 +2,6 @@ node_modules
 .env
 back-end/snapshots/*
 !back-end/snapshots/.gitkeep
+
+# Local learning/docs — never push
+docs/
