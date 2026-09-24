@@ -20,9 +20,7 @@ function toCsv(records) {
 }
 
 function buildFileName() {
-    // Naming convention for documentation
-    // usage-YYYYMMDD-HHmmss-WIB.csv
-    // Example: usage-20260924-100000-WIB.csv
+    
     const parts = new Intl.DateTimeFormat('en-GB', {
         timeZone: 'Asia/Jakarta',
         year: 'numeric',
@@ -48,7 +46,7 @@ async function saveUsageSnapshot() {
     const filePath = path.join(SNAPSHOT_DIR, fileName);
 
     fs.writeFileSync(filePath, toCsv(data), 'utf8');
-    console.log('[snapshot] saved ${fileName}');
+    console.log(`Snapshot saved: ${fileName}`);
     return filePath;
 }
 

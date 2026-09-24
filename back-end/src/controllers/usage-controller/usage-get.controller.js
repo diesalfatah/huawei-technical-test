@@ -1,7 +1,5 @@
-// SECTION IMPORTS
 const usageStore = require('../../data/usageStore');
 
-// GET ALL USAGE OR FILTER BY SUBSCRIBER ID
 function getUsage(req, res) {
     const { subscriberId } = req.query;
 

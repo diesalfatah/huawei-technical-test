@@ -1,7 +1,7 @@
 const bcrypt = require('bcryptjs');
 
 function createUserSeed() {
-    // hashSync is fine for seed-at-startup (runs once)
+    
     return [
         {
             id: 1,

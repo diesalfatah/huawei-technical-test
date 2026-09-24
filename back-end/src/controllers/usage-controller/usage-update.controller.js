@@ -1,10 +1,8 @@
-// SECTION IMPORTS
 const usageStore = require('../../data/usageStore');
 
 function updateUsage(req, res) {
     const id = Number(req.params.id);
 
-    // ID pada proyek ini adalah bilangan bulat positif.
     if (!Number.isSafeInteger(id) || id <= 0) {
         return res.status(400).json({
             error: 'ID must be a positive integer',
@@ -13,7 +11,6 @@ function updateUsage(req, res) {
 
     const body = req.body;
 
-    // Body harus berupa object JSON.
     if (!body || typeof body !== 'object' || Array.isArray(body)) {
         return res.status(400).json({
             error: 'Request body must be a JSON object',
@@ -30,7 +27,6 @@ function updateUsage(req, res) {
         });
     }
 
-    // Mencegah perubahan id, timestamp, atau field tidak dikenal.
     if (fields.some((field) => !allowedFields.includes(field))) {
         return res.status(400).json({
             error: 'Request contains a field that cannot be updated',

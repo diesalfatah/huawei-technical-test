@@ -2,7 +2,7 @@ const fs = require('fs');
 const path = require('path');
 
 const SNAPSHOT_DIR = path.join(__dirname, '../../snapshots');
-const MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000; // 30 days
+const MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000;
 
 function cleanupSnapshots() {
     if (!fs.existsSync(SNAPSHOT_DIR)) {
