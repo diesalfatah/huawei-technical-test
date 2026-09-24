@@ -1,25 +1,138 @@
 <template>
-    <section
-        class="overflow-hidden rounded-xl border border-slate-200 bg-white shadow-sm"
-    >
-        <div class="border-b border-slate-200 px-5 py-4 sm:px-6">
-            <h2 class="text-base font-semibold text-slate-900">
-                Usage records
-            </h2>
-            <p class="mt-1 max-w-2xl text-sm leading-6 text-slate-500">
-                Review call minutes, SMS counts, and data usage for each
-                subscriber.
-            </p>
+    <section class="space-y-4">
+        <div class="flex flex-warp gap-3 items-end">
+            <label class="form-control">
+                <span class="label-text">Filter by Subscriber ID</span>
+                <input
+                    v-model.trim="filterSubscriberId"
+                    class="input input-bordered"
+                    placeholder="e.g. SUB01"
+                />
+            </label>
+            <button class="btn" :disabled="loading" @click="loadData">
+                Apply Filter
+            </button>
+            <button
+                class="btn btn-ghost"
+                :disabled="loading"
+                @click="clearFilter"
+            >
+                Clear Filter
+            </button>
+            <button class="btn btn-neutral ml-auto" @click="openCreate">
+                + New usage
+            </button>
         </div>
 
-        <div class="px-5 py-16 text-center sm:px-6">
-            <p class="text-sm font-medium text-slate-800">
-                No records on screen yet
-            </p>
-            <p class="mx-auto mt-1 max-w-md text-sm leading-6 text-slate-500">
-                This workspace lists subscriber usage. Load, create, edit, and
-                delete records from here.
-            </p>
-        </div>
+        <p v-if="pageError" class="text-red-600">{{ pageError }}</p>
+        <p v-if="loading" class="text-slate-500">Loading...</p>
+
+        <UsageTable
+            :rows="records"
+            :can-delete="auth.isAdmin"
+            @edit="openEdit"
+            @remove="onRemove"
+        />
+
+        <UsageFormModal
+            :open="modalOpen"
+            :initial="editing"
+            :saving="saving"
+            :error="formError"
+            @close="closeModal"
+            @submit="onSubmitForm"
+        />
     </section>
 </template>
+
+<script setup>
+import { ref, onMounted } from 'vue';
+import { useAuthStore } from '../../../stores/auth';
+import UsageTable from '../../../components/usage/UsageTable.vue';
+import UsageFormModal from '../../../components/usage/UsageFormModal.vue';
+import { getListUsage } from '../../../api/usage/getListUsage';
+import { deleteUsage } from '../../../api/usage/deleteUsage';
+import { createUsage } from '../../../api/usage/createUsage';
+import { updateUsage } from '../../../api/usage/updateUsage';
+
+const auth = useAuthStore();
+
+const records = ref([]);
+const loading = ref(false);
+const saving = ref(false);
+const pageError = ref('');
+const formError = ref('');
+const filterSubscriberId = ref('');
+
+const modalOpen = ref(false);
+const editing = ref(null);
+
+async function loadData() {
+    loading.value = true;
+    pageError.value = '';
+    try {
+        records.value = await getListUsage(
+            filterSubscriberId.value || undefined,
+        );
+    } catch (e) {
+        pageError.value =
+            e.response?.data?.error || e.message || 'Failed to load usage data';
+    } finally {
+        loading.value = false;
+    }
+}
+
+function clearFilter() {
+    filterSubscriberId.value = '';
+    loadData();
+}
+
+function openCreate() {
+    editing.value = null;
+    formError.value = '';
+    modalOpen.value = true;
+}
+
+function openEdit(row) {
+    editing.value = row;
+    formError.value = '';
+    modalOpen.value = true;
+}
+
+function closeModal() {
+    modalOpen.value = false;
+    editing.value = null;
+    formError.value = '';
+}
+
+async function onSubmitForm(payload) {
+    saving.value = true;
+    formError.value = '';
+    try {
+        if (editing.value?.id) {
+            await updateUsage(editing.value.id, payload);
+        } else {
+            await createUsage(payload);
+        }
+        closeModal();
+        await loadData();
+    } catch (e) {
+        formError.value = e.response?.data?.error || 'Save failed';
+    } finally {
+        saving.value = false;
+    }
+}
+
+async function onRemove(row) {
+    const ok = window.confirm(`Delete usage ${row.id}?`);
+    if (!ok) return;
+    try {
+        await deleteUsage(row.id);
+        await loadData();
+    } catch (e) {
+        pageError.value = e.response?.data?.error || 'Delete failed';
+    }
+}
+
+onMounted(loadData);
+</script>

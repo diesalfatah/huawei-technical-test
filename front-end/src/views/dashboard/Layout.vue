@@ -77,30 +77,39 @@
             <div
                 class="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64"
             >
-                <ul class="menu w-full grow">
+                <ul class="menu w-full grow gap-2">
+                    <li v-for="menu in sidebarMenu" :key="menu.name">
+                        <RouterLink :to="{ name: menu.link }">
+                            <component :is="menu.icon" class="size-5" />
+                            <span class="is-drawer-close:hidden">{{
+                                menu.name
+                            }}</span>
+                        </RouterLink>
+                    </li>
+                    <!-- <li>
+                        <RouterLink
+                            :to="{ name: 'dashboard-usage' }"
+                            class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
+                            data-tip="Usage"
+                        >
+                            <Menu class="size-5" />
+                            <span class="is-drawer-close:hidden">Usage</span>
+                        </RouterLink>
+                    </li>
                     <li>
                         <RouterLink
                             :to="{ name: 'dashboard-usage' }"
                             class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
                             data-tip="Usage"
                         >
-                            <svg
-                                xmlns="http://www.w3.org/2000/svg"
-                                viewBox="0 0 24 24"
-                                stroke-linejoin="round"
-                                stroke-linecap="round"
-                                stroke-width="2"
-                                fill="none"
-                                stroke="currentColor"
-                                class="my-1.5 inline-block size-4"
-                            >
-                                <path d="M4 6h16" />
-                                <path d="M4 12h16" />
-                                <path d="M4 18h10" />
-                            </svg>
+                            <HamburgerIcon class="size-5" />
                             <span class="is-drawer-close:hidden">Usage</span>
                         </RouterLink>
-                    </li>
+                    </li> -->
+                    <!-- <li>
+                        <RouterLink
+                        :to="{ name: 'dashboard-usage' }"
+                    </li> -->
                 </ul>
             </div>
         </div>
@@ -108,6 +117,7 @@
 </template>
 
 <script setup>
+import { EyeIcon, HamburgerIcon, Menu } from '@lucide/vue';
 import { computed, ref, watch, watchEffect } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useAuthStore } from '../../stores/auth';
@@ -121,6 +131,11 @@ const pageTitle = computed(() => route.meta.title || 'Dashboard');
 const pageDescription = computed(
     () => route.meta.description || 'Subscriber usage console',
 );
+
+const sidebarMenu = [
+    { name: 'Usage', link: 'dashboard-usage', icon: Menu },
+    { name: 'Test', link: 'test', icon: EyeIcon },
+];
 
 const initials = computed(() => {
     const name = auth.user?.username || 'User';

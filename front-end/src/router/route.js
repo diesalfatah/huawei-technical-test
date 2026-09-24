@@ -1,8 +1,9 @@
-import { createRouter, createWebHistory } from 'vue-router'
-import { useAuthStore } from '../stores/auth'
-import LoginPage from '../views/auth/LoginPage.vue'
-import DashboardLayout from '../views/dashboard/Layout.vue'
-import UsagePage from '../views/dashboard/usage/UsagePage.vue'
+import { createRouter, createWebHistory } from 'vue-router';
+import { useAuthStore } from '../stores/auth';
+import LoginPage from '../views/auth/LoginPage.vue';
+import DashboardLayout from '../views/dashboard/Layout.vue';
+import UsagePage from '../views/dashboard/usage/UsagePage.vue';
+import TestDies from '../views/auth/TestDies.vue';
 
 const routes = [
     {
@@ -29,33 +30,38 @@ const routes = [
                     description: 'Subscriber call, SMS, and data records',
                 },
             },
+            {
+                path: '/test',
+                name: 'test',
+                component: TestDies,
+            },
         ],
     },
-]
+];
 
 const router = createRouter({
     history: createWebHistory(import.meta.env.BASE_URL),
     routes,
-})
+});
 
 router.beforeEach(async (to) => {
-    const auth = useAuthStore()
+    const auth = useAuthStore();
 
     if (auth.token && !auth.user) {
-        await auth.restoreSession()
+        await auth.restoreSession();
     }
 
-    const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
+    const requiresAuth = to.matched.some((record) => record.meta.requiresAuth);
 
     if (requiresAuth && !auth.isAuthenticated) {
-        return { name: 'login', query: { redirect: to.fullPath } }
+        return { name: 'login', query: { redirect: to.fullPath } };
     }
 
     if (to.meta.guestOnly && auth.isAuthenticated) {
-        return { name: 'dashboard-usage' }
+        return { name: 'dashboard-usage' };
     }
 
-    return true
-})
+    return true;
+});
 
-export default router
+export default router;
