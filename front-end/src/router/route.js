@@ -1,22 +1,35 @@
 import { createRouter, createWebHistory } from 'vue-router'
 import { useAuthStore } from '../stores/auth'
+import LoginPage from '../views/auth/LoginPage.vue'
+import DashboardLayout from '../views/dashboard/Layout.vue'
+import UsagePage from '../views/dashboard/usage/UsagePage.vue'
 
 const routes = [
     {
-        path: '/login',
+        path: '/',
         name: 'login',
-        component: () => import('../views/auth/LoginPage.vue'),
+        component: LoginPage,
         meta: { guestOnly: true },
     },
     {
-        path: '/',
-        name: '/usage',
-    },
-    {
-        path: '/usage',
-        name: 'usage',
-        component: () => import('../views/usage/UsageListPage.vue'),
+        path: '/dashboard',
+        component: DashboardLayout,
         meta: { requiresAuth: true },
+        children: [
+            {
+                path: '',
+                redirect: { name: 'dashboard-usage' },
+            },
+            {
+                path: 'usage',
+                name: 'dashboard-usage',
+                component: UsagePage,
+                meta: {
+                    title: 'Usage',
+                    description: 'Subscriber call, SMS, and data records',
+                },
+            },
+        ],
     },
 ]
 
@@ -28,20 +41,21 @@ const router = createRouter({
 router.beforeEach(async (to) => {
     const auth = useAuthStore()
 
-    //if token exists, but object missing validate with /me
     if (auth.token && !auth.user) {
         await auth.restoreSession()
     }
 
-    if (to.meta.requiresAuth && !auth.isAuthenticated) {
-        return { name: 'login' , query: { redirect: to.fullPath } }
+    const requiresAuth = to.matched.some((record) => record.meta.requiresAuth)
+
+    if (requiresAuth && !auth.isAuthenticated) {
+        return { name: 'login', query: { redirect: to.fullPath } }
     }
 
     if (to.meta.guestOnly && auth.isAuthenticated) {
-        return { name: 'usage'}
+        return { name: 'dashboard-usage' }
     }
 
     return true
 })
 
-export default router;
+export default router

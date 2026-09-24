@@ -1,63 +1,56 @@
 import { defineStore } from 'pinia'
-import { ref, computed } from 'vue'
 import { loginApi, meApi } from '../api/auth/login'
 
-export const useAuthStore = defineStore('auth', () => {
-    const token = ref(localStorage.getItem('token') || '')
-    const user = ref(JSON.parse(localStorage.getItem('user') || 'null'))
-    const loading = ref(false)
-    const error = ref('')
+export const useAuthStore = defineStore('auth', {
+    state: () => ({
+        token: localStorage.getItem('token') || '',
+        user: JSON.parse(localStorage.getItem('user') || 'null'),
+        loading: false,
+        error: '',
+    }),
 
-    const isAuthenticated = computed(() => Boolean(token.value))
-    const isAdmin = computed(() => user.value?.role === 'admin')
+    getters: {
+        isAuthenticated: (state) => Boolean(state.token),
+        isAdmin: (state) => state.user?.role === 'admin',
+    },
 
-    async function login(username, password) {
-        loading.value = true
-        error.value = ''
-        try {
-            const data = await loginApi({ username, password })
-            token.value = data.token
-            user.value = data.user
-            localStorage.setItem('token', data.token)
-            localStorage.setItem('user', JSON.stringify(data.user))
-            return true
-        } catch (e) {
-            error.value = e.response?.data?.message || 'Login failed'
-            return false
-        } finally {
-            loading.value = false
-        }
-    }
+    actions: {
+        async login(username, password) {
+            this.loading = true
+            this.error = ''
+            try {
+                const data = await loginApi({ username, password })
+                this.token = data.token
+                this.user = data.user
+                localStorage.setItem('token', data.token)
+                localStorage.setItem('user', JSON.stringify(data.user))
+                return true
+            } catch (e) {
+                this.error = e.response?.data?.message || 'Login failed'
+                return false
+            } finally {
+                this.loading = false
+            }
+        },
 
-    async function restoreSession() {
-        if (!token.value) return false
-        try {
-            const data = await meApi()
-            user.value = data.user
-            localStorage.setItem('user', JSON.stringify(data.user))
-            return true
-        } catch {
-            logout()
-            return false
-        }
-    }
+        async restoreSession() {
+            if (!this.token) return false
+            try {
+                const data = await meApi()
+                this.user = data.user
+                localStorage.setItem('user', JSON.stringify(data.user))
+                return true
+            } catch {
+                this.logout()
+                return false
+            }
+        },
 
-    function logout() {
-        token.value = ''
-        user.value = null
-        localStorage.removeItem('token')
-        localStorage.removeItem('user')
-    }
-
-    return {
-        token,
-        user,
-        loading,
-        error,
-        isAuthenticated,
-        isAdmin,
-        login,
-        restoreSession,
-        logout,
-    }
+        logout() {
+            this.token = ''
+            this.user = null
+            localStorage.removeItem('token')
+            localStorage.removeItem('user')
+        },
+    },
 })

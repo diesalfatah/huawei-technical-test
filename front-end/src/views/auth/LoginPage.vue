@@ -14,7 +14,7 @@
             </p>
 
             <label class="block space-y-1">
-                <span class="text-sm text-slate-700">  
+                <span class="text-sm text-slate-700">
                     Username
                     <input
                         v-model.trim="username"
@@ -57,22 +57,29 @@
 </template>
 
 <script setup>
-import { ref } from 'vue'
-import { useRoute, useRouter } from 'vue-router'
-import { useAuthStore } from '../../stores/auth'
+import { onMounted, ref } from 'vue';
+import { useRoute, useRouter } from 'vue-router';
+import { useAuthStore } from '../../stores/auth';
 
-const auth = useAuthStore()
-const router = useRouter()
-const route = useRoute()
+const auth = useAuthStore();
+const router = useRouter();
+const route = useRoute();
 
-const username = ref('admin')
-const password = ref('admin123')
+const username = ref('admin');
+const password = ref('admin123');
+
+onMounted(() => {
+    document.title = 'Sign in · Usage Console';
+});
 
 async function onSubmit() {
-    const ok = await auth.login(username.value, password.value)
-    if (!ok) return
+    const ok = await auth.login(username.value, password.value);
+    if (!ok) return;
 
-    const redirect = typeof route.query.redirect === 'string' ? route.query.redirect : '/usage'
-    router.replace(redirect)
+    const redirect =
+        typeof route.query.redirect === 'string'
+            ? route.query.redirect
+            : '/dashboard/usage';
+    router.replace(redirect);
 }
 </script>

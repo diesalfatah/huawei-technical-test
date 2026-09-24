@@ -5,7 +5,6 @@ export const http = axios.create({
   timeout: 10000,
 })
 
-//Attach token to every request
 http.interceptors.request.use((config) => {
   const token = localStorage.getItem('token')
   if (token) {
@@ -14,16 +13,14 @@ http.interceptors.request.use((config) => {
   return config
 })
 
-//If 401 force logout / redirect
 http.interceptors.response.use(
   (response) => response,
   (error) => {
     if (error.response?.status === 401) {
       localStorage.removeItem('token')
       localStorage.removeItem('user')
-      // soft redirect; router guard will also catch this
-      if (window.location.pathname !== '/login') {
-        window.location.href = '/login'
+      if (window.location.pathname !== '/') {
+        window.location.href = '/'
       }
     }
     return Promise.reject(error)
