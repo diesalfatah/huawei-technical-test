@@ -8,116 +8,96 @@
         />
 
         <div class="drawer-content min-h-screen bg-base-200">
-            <nav class="navbar w-full bg-base-300">
-                <label
-                    for="dashboard-drawer"
-                    aria-label="open sidebar"
-                    class="btn btn-square btn-primary drawer-button"
-                >
-                    <svg
-                        xmlns="http://www.w3.org/2000/svg"
-                        viewBox="0 0 24 24"
-                        stroke-linejoin="round"
-                        stroke-linecap="round"
-                        stroke-width="2"
-                        fill="none"
-                        stroke="currentColor"
-                        class="my-1.5 inline-block size-4"
+            <div class="navbar sticky top-0 z-20 bg-base-100 shadow-sm">
+                <div class="flex-none lg:hidden">
+                    <label
+                        for="dashboard-drawer"
+                        aria-label="open sidebar"
+                        class="btn btn-square btn-ghost"
                     >
-                        <path
-                            d="M4 4m0 2a2 2 0 0 1 2 -2h12a2 2 0 0 1 2 2v12a2 2 0 0 1 -2 2h-12a2 2 0 0 1 -2 -2z"
-                        />
-                        <path d="M9 4v16" />
-                        <path d="M14 10l2 2l-2 2" />
-                    </svg>
-                </label>
-                <div class="min-w-0 px-4">
+                        <Menu class="size-5" />
+                    </label>
+                </div>
+
+                <div class="min-w-0 flex-1 px-2">
                     <p class="truncate font-semibold">{{ pageTitle }}</p>
-                    <p class="truncate text-xs opacity-70">
+                    <p class="truncate text-xs opacity-60">
                         {{ pageDescription }}
                     </p>
                 </div>
-                <div class="ml-auto flex items-center gap-3 px-2">
+
+                <div class="flex-none items-center gap-3 px-1 sm:flex">
                     <div class="hidden items-center gap-2 sm:flex">
-                        <span
-                            class="grid h-8 w-8 place-items-center rounded-full bg-neutral text-xs font-semibold text-neutral-content"
-                        >
-                            {{ initials }}
-                        </span>
+                        <div class="avatar avatar-placeholder">
+                            <div
+                                class="w-9 rounded-full bg-primary text-primary-content"
+                            >
+                                <span class="text-xs">{{ initials }}</span>
+                            </div>
+                        </div>
                         <div class="leading-tight">
                             <p class="text-sm font-medium">
                                 {{ auth.user?.username || 'User' }}
                             </p>
-                            <p class="text-xs capitalize opacity-70">
+                            <span class="badge badge-ghost badge-sm capitalize">
                                 {{ auth.user?.role || 'operator' }}
-                            </p>
+                            </span>
                         </div>
                     </div>
                     <button
                         type="button"
-                        class="btn btn-ghost btn-sm"
+                        class="btn btn-outline btn-sm"
                         @click="onLogout"
                     >
                         Logout
                     </button>
                 </div>
-            </nav>
-
-            <div class="p-4">
-                <RouterView />
             </div>
+
+            <main class="p-4 md:p-6">
+                <RouterView />
+            </main>
         </div>
 
-        <div class="drawer-side is-drawer-close:overflow-visible">
+        <div class="drawer-side">
             <label
                 for="dashboard-drawer"
                 aria-label="close sidebar"
                 class="drawer-overlay"
             />
-            <div
-                class="flex min-h-full flex-col items-start bg-base-200 is-drawer-close:w-14 is-drawer-open:w-64"
-            >
-                <ul class="menu w-full grow gap-2">
-                    <li v-for="menu in sidebarMenu" :key="menu.name">
-                        <RouterLink :to="{ name: menu.link }">
-                            <component :is="menu.icon" class="size-5" />
-                            <span class="is-drawer-close:hidden">{{
-                                menu.name
-                            }}</span>
+
+            <aside class="flex min-h-full w-64 flex-col bg-base-100">
+                <div class="h-20 overflow-hidden bg-base-200">
+                    <img
+                        src="../../assets/huawei-logo.png"
+                        alt="Huawei Logo"
+                        class="h-full w-full object-cover object-center"
+                    />
+                </div>
+
+                <ul class="menu w-full grow p-2">
+                    <li class="menu-title">Menu</li>
+                    <li v-for="item in sidebarMenu" :key="item.name">
+                        <RouterLink
+                            :to="{ name: item.link }"
+                            active-class="bg-primary"
+                        >
+                            <component :is="item.icon" class="size-4" />
+                            {{ item.name }}
                         </RouterLink>
                     </li>
-                    <!-- <li>
-                        <RouterLink
-                            :to="{ name: 'dashboard-usage' }"
-                            class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                            data-tip="Usage"
-                        >
-                            <Menu class="size-5" />
-                            <span class="is-drawer-close:hidden">Usage</span>
-                        </RouterLink>
-                    </li>
-                    <li>
-                        <RouterLink
-                            :to="{ name: 'dashboard-usage' }"
-                            class="is-drawer-close:tooltip is-drawer-close:tooltip-right"
-                            data-tip="Usage"
-                        >
-                            <HamburgerIcon class="size-5" />
-                            <span class="is-drawer-close:hidden">Usage</span>
-                        </RouterLink>
-                    </li> -->
-                    <!-- <li>
-                        <RouterLink
-                        :to="{ name: 'dashboard-usage' }"
-                    </li> -->
                 </ul>
-            </div>
+
+                <div class="border-t border-base-300 p-4 text-xs opacity-60">
+                    Usage Console
+                </div>
+            </aside>
         </div>
     </div>
 </template>
 
 <script setup>
-import { EyeIcon, HamburgerIcon, Menu } from '@lucide/vue';
+import { ChartPie, CodeXml, Database, EyeIcon, Menu, Timer } from '@lucide/vue';
 import { computed, ref, watch, watchEffect } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useAuthStore } from '../../stores/auth';
@@ -133,8 +113,18 @@ const pageDescription = computed(
 );
 
 const sidebarMenu = [
-    { name: 'Usage', link: 'dashboard-usage', icon: Menu },
-    { name: 'Test', link: 'test', icon: EyeIcon },
+    { name: 'Q1 : Usage', link: 'dashboard-usage', icon: ChartPie },
+    { name: 'Q2 : Cron Job', link: 'dashboard-cron-job', icon: Timer },
+    {
+        name: 'Q3 : Database Integration',
+        link: 'dashboard-database-integration',
+        icon: Database,
+    },
+    {
+        name: 'Q4 : Fix the Code',
+        link: 'dashboard-fix-the-code',
+        icon: CodeXml,
+    },
 ];
 
 const initials = computed(() => {

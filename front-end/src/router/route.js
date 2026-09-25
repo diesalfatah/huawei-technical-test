@@ -1,9 +1,17 @@
 import { createRouter, createWebHistory } from 'vue-router';
 import { useAuthStore } from '../stores/auth';
+
+// LOGIN AUTH
 import LoginPage from '../views/auth/LoginPage.vue';
+
+// LAYOUT
 import DashboardLayout from '../views/dashboard/Layout.vue';
+
+// COMPOENENTS
 import UsagePage from '../views/dashboard/usage/UsagePage.vue';
-import TestDies from '../views/auth/TestDies.vue';
+import CronJobPage from '../views/dashboard/cron-job/CronJobPage.vue';
+import DatabaseIntegrationPage from '../views/dashboard/database-integration/DatabaseIntegrationPage.vue';
+import FixTheCodePage from '../views/dashboard/fix-the-code/FixTheCodePage.vue';
 
 const routes = [
     {
@@ -25,15 +33,21 @@ const routes = [
                 path: 'usage',
                 name: 'dashboard-usage',
                 component: UsagePage,
-                meta: {
-                    title: 'Usage',
-                    description: 'Subscriber call, SMS, and data records',
-                },
             },
             {
-                path: '/test',
-                name: 'test',
-                component: TestDies,
+                path: 'cron-job',
+                name: 'dashboard-cron-job',
+                component: CronJobPage,
+            },
+            {
+                path: 'database-integration',
+                name: 'dashboard-database-integration',
+                component: DatabaseIntegrationPage,
+            },
+            {
+                path: 'fix-the-code',
+                name: 'dashboard-fix-the-code',
+                component: FixTheCodePage,
             },
         ],
     },

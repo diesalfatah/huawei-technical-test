@@ -1,25 +1,34 @@
 <template>
     <section class="space-y-4">
         <div class="flex flex-warp gap-3 items-end">
-            <label class="form-control">
-                <span class="label-text">Filter by Subscriber ID</span>
+            <fieldset class="fieldset l">
+                <legend class="fieldset-legend">Search</legend>
                 <input
                     v-model.trim="filterSubscriberId"
-                    class="input input-bordered"
-                    placeholder="e.g. SUB01"
+                    type="text"
+                    class="input rounded-lg"
+                    placeholder="Search by subscriber ID"
                 />
-            </label>
-            <button class="btn" :disabled="loading" @click="loadData">
+            </fieldset>
+
+            <button
+                class="btn btn-success rounded-lg shadow-none border-none"
+                :disabled="loading"
+                @click="loadData"
+            >
                 Apply Filter
             </button>
             <button
-                class="btn btn-ghost"
+                class="btn btn-warning rounded-lg shadow-none border-none"
                 :disabled="loading"
                 @click="clearFilter"
             >
                 Clear Filter
             </button>
-            <button class="btn btn-neutral ml-auto" @click="openCreate">
+            <button
+                class="btn btn-primary rounded-lg shadow-none border-none ml-auto"
+                @click="openCreate"
+            >
                 + New usage
             </button>
         </div>

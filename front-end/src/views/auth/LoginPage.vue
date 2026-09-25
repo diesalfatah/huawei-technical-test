@@ -1,58 +1,61 @@
 <template>
-    <main
-        class="min-h-screen flex items-center justify-center bg-slate-100 p-4"
-    >
-        <form
-            class="w-full max-w-md bg-white border border-slate-200 p-6 space-y-4"
-            @submit.prevent="onSubmit"
-        >
-            <h1 class="text-2x1 font-semibold text-slate-900">
-                Subscriber Usage Console
-            </h1>
-            <p class="text-sm text-slate-600">
-                Sign in to manage usage records.
-            </p>
+    <main class="min-h-screen flex items-center justify-center bg-base-200 p-4">
+        <div class="card bg-base-100 rounded-xl shadow-lg">
+            <div class="card-body">
+                <form
+                    class="w-full max-w-md p-6 space-y-4"
+                    @submit.prevent="onSubmit"
+                >
+                    <h1 class="text-3x1 font-semibold">
+                        Login to your account
+                    </h1>
+                    <p class="text-sm text-slate-600">
+                        Sign in to manage usage records and see my answered
+                        questions.
+                    </p>
 
-            <label class="block space-y-1">
-                <span class="text-sm text-slate-700">
-                    Username
-                    <input
-                        v-model.trim="username"
-                        class="input input-bordered w-full"
-                        autocomplete="username"
-                        required
-                    />
-                </span>
-            </label>
+                    <fieldset class="fieldset l">
+                        <legend class="fieldset-legend">Username</legend>
+                        <input
+                            v-model.trim="username"
+                            type="text"
+                            class="input w-full"
+                            placeholder="Type here"
+                            autocomplete="username"
+                            required
+                        />
+                    </fieldset>
 
-            <label class="block space-y-1">
-                <span class="text-sm text-slate-700">
-                    Password
-                    <input
-                        v-model.trim="password"
-                        class="input input-bordered w-full"
-                        autocomplete="current-password"
-                        required
-                    />
-                </span>
-            </label>
+                    <fieldset class="fieldset l">
+                        <legend class="fieldset-legend">Password</legend>
+                        <input
+                            v-model.trim="password"
+                            type="password"
+                            class="input w-full"
+                            placeholder="Type here"
+                            autocomplete="current-password"
+                            required
+                        />
+                    </fieldset>
 
-            <p v-if="auth.error" class="text-sm text-red-600">
-                {{ auth.error }}
-            </p>
+                    <p v-if="auth.error" class="text-sm text-red-600">
+                        {{ auth.error }}
+                    </p>
 
-            <button
-                class="btn btn=neutral w-full"
-                type="submit"
-                :disabled="auth.loading"
-            >
-                {{ auth.loading ? 'Signing in...' : 'Sign in' }}
-            </button>
+                    <button
+                        class="btn btn-primary w-full"
+                        type="submit"
+                        :disabled="auth.loading"
+                    >
+                        {{ auth.loading ? 'Signing in...' : 'Sign in' }}
+                    </button>
 
-            <p class="text-xs text-slate-500">
-                Demo: admin / admin123 &nbsp;|&nbsp; operator / op123456
-            </p>
-        </form>
+                    <p class="text-xs text-slate-500">
+                        Demo: admin / admin123 &nbsp;|&nbsp; operator / op123456
+                    </p>
+                </form>
+            </div>
+        </div>
     </main>
 </template>
 
@@ -60,7 +63,6 @@
 import { onMounted, ref } from 'vue';
 import { useRoute, useRouter } from 'vue-router';
 import { useAuthStore } from '../../stores/auth';
-import { useTestStore } from '../../stores/test';
 
 const auth = useAuthStore();
 const router = useRouter();
