@@ -7,7 +7,7 @@ import LoginPage from '../views/auth/LoginPage.vue';
 // LAYOUT
 import DashboardLayout from '../views/dashboard/Layout.vue';
 
-// COMPOENENTS
+// COMPONENTS
 import UsagePage from '../views/dashboard/usage/UsagePage.vue';
 import CronJobPage from '../views/dashboard/cron-job/CronJobPage.vue';
 import DatabaseIntegrationPage from '../views/dashboard/database-integration/DatabaseIntegrationPage.vue';
@@ -48,6 +48,15 @@ const routes = [
                 path: 'fix-the-code',
                 name: 'dashboard-fix-the-code',
                 component: FixTheCodePage,
+            },
+            {
+                path: 'cron-job',
+                name: 'dashboard-cron-job',
+                component: CronJobPage,
+                meta: {
+                    title: 'Cron Job',
+                    description: 'Usage snapshot schedule',
+                },
             },
         ],
     },

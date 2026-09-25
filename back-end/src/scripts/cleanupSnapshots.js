@@ -1,17 +1,16 @@
 const fs = require('fs');
 const path = require('path');
+const { SNAPSHOT_DIR } = require('../jobs/snapshotUsage.job');
 
-const SNAPSHOT_DIR = path.join(__dirname, '../../snapshots');
-const MAX_AGE_MS = 30 * 24 * 60 * 60 * 1000;
-
-function cleanupSnapshots() {
+function cleanupSnapshots(maxAgeDays = 30) {
     if (!fs.existsSync(SNAPSHOT_DIR)) {
-        console.log('[cleanup] snapshots folder does not exist');
-        return;
+        console.log('Folder does not exist');
+        return { deleted: 0, files: [] };
     }
 
+    const maxAgeMs = Number(maxAgeDays) * 24 * 60 * 60 * 1000;
     const now = Date.now();
-    let deleted = 0;
+    const deletedFiles = [];
 
     for (const file of fs.readdirSync(SNAPSHOT_DIR)) {
         if (!file.endsWith('.csv')) continue;
@@ -19,14 +18,19 @@ function cleanupSnapshots() {
         const fullPath = path.join(SNAPSHOT_DIR, file);
         const age = now - fs.statSync(fullPath).mtimeMs;
 
-        if (age > MAX_AGE_MS) {
+        if (age > maxAgeMs) {
             fs.unlinkSync(fullPath);
-            deleted += 1;
-            console.log(`[cleanup] deleted ${file}`);
+            deletedFiles.push(file);
+            console.log(`${file} deleted`);
         }
     }
 
-    console.log(`[cleanup] done. deleted=${deleted}`);
+    console.log(`${deletedFiles.length} files deleted`);
+    return { deleted: deletedFiles.length, files: deletedFiles };
 }
 
-cleanupSnapshots();
+if (require.main === module) {
+    cleanupSnapshots();
+}
+
+module.exports = { cleanupSnapshots };

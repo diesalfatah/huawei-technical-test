@@ -7,16 +7,33 @@ const authRoutes = require('./routes/auth.routes');
 const usageRoutes = require('./routes/usage.routes');
 const notFound = require('./middlewares/notFound');
 const errorHandler = require('./middlewares/errorHandler');
+const snapshotRoutes = require('./routes/snapshot.routes');
 
 const app = express();
 
 app.use(helmet());
-app.use(cors({origin: true, credentials: true}));
+app.use(cors({ origin: true, credentials: true }));
 app.use(express.json());
 app.use(morgan('dev'));
 
 app.use('/api/auth', authRoutes);
 app.use('/api', usageRoutes);
+app.use('/api', snapshotRoutes);
+
+const path = require('path');
+const fs = require('fs');
+
+const distDir = path.join(__dirname, '../../front-end/dist');
+
+if (fs.existsSync(distDir)) {
+    app.use(express.static(distDir));
+
+    app.use((req, res, next) => {
+        if (req.method !== 'GET') return next();
+        if (req.path.startsWith('/api')) return next();
+        res.sendFile(path.join(distDir, 'index.html'));
+    });
+}
 
 app.use(notFound);
 app.use(errorHandler);

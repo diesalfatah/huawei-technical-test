@@ -2,8 +2,8 @@ const fs = require('fs');
 const path = require('path');
 const axios = require('axios');
 
-const SNAPSHOT_DIR = path.join(__dirname, '..', 'snapshots');
-const API_URL = process.env.SNAPSHOT_API_URL || 'http://localhost:3000/api/usage';
+const SNAPSHOT_DIR = path.join(__dirname, '../../snapshots');
+const API_URL = process.env.SNAPSHOT_API_URL || `http://127.0.0.1:${process.env.PORT || 3000}/api/usage`;
 
 function toCsv(records) {
     const headers = ['id', 'subscriberId', 'callMinutes', 'smsCount', 'dataUsageMB', 'timestamp'];
@@ -20,7 +20,6 @@ function toCsv(records) {
 }
 
 function buildFileName() {
-    
     const parts = new Intl.DateTimeFormat('en-GB', {
         timeZone: 'Asia/Jakarta',
         year: 'numeric',
@@ -51,6 +50,7 @@ async function saveUsageSnapshot() {
 }
 
 module.exports = {
+    SNAPSHOT_DIR,
     saveUsageSnapshot,
     toCsv,
     buildFileName,

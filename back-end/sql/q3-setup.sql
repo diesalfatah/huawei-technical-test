@@ -1,15 +1,11 @@
--- =============================================
--- Q3 SETUP: schema + sample data from PDF
--- =============================================
-
 DROP TABLE IF EXISTS usage;
 DROP TABLE IF EXISTS subscribers;
 
 CREATE TABLE subscribers (
-  id               TEXT PRIMARY KEY,   -- SUB01, SUB02, ...
+  id               TEXT PRIMARY KEY,   
   name             TEXT NOT NULL,
-  plan             TEXT NOT NULL,      -- Basic / Premium / Family
-  activation_date  TEXT NOT NULL       -- store as YYYY-MM-DD
+  plan             TEXT NOT NULL,      
+  activation_date  TEXT NOT NULL       
 );
 
 CREATE TABLE usage (
@@ -22,7 +18,6 @@ CREATE TABLE usage (
   FOREIGN KEY (subscriber_id) REFERENCES subscribers(id)
 );
 
--- Subscribers reference table (from PDF)
 INSERT INTO subscribers (id, name, plan, activation_date) VALUES
   ('SUB01', 'Amir',  'Basic',   '2023-01-12'),
   ('SUB02', 'Sari',  'Premium', '2022-05-03'),
@@ -31,7 +26,6 @@ INSERT INTO subscribers (id, name, plan, activation_date) VALUES
   ('SUB05', 'Rian',  'Premium', '2023-08-08'),
   ('SUB06', 'Nia',   'Basic',   '2024-11-30');
 
--- Usage rows (from PDF sample snapshots)
 INSERT INTO usage (subscriber_id, call_minutes, sms_count, data_usage_mb, timestamp) VALUES
   ('SUB01', 40, 10, 1500, '2025-08-01 08:00'),
   ('SUB01', 35,  8, 1200, '2025-08-01 12:00'),

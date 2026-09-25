@@ -5,26 +5,12 @@
                 <legend class="fieldset-legend">Search</legend>
                 <input
                     v-model.trim="filterSubscriberId"
+                    @change="loadData"
                     type="text"
                     class="input rounded-lg"
                     placeholder="Search by subscriber ID"
                 />
             </fieldset>
-
-            <button
-                class="btn btn-success rounded-lg shadow-none border-none"
-                :disabled="loading"
-                @click="loadData"
-            >
-                Apply Filter
-            </button>
-            <button
-                class="btn btn-warning rounded-lg shadow-none border-none"
-                :disabled="loading"
-                @click="clearFilter"
-            >
-                Clear Filter
-            </button>
             <button
                 class="btn btn-primary rounded-lg shadow-none border-none ml-auto"
                 @click="openCreate"
@@ -55,7 +41,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted } from 'vue';
+import { ref, onMounted, watch } from 'vue';
 import { useAuthStore } from '../../../stores/auth';
 import UsageTable from '../../../components/usage/UsageTable.vue';
 import UsageFormModal from '../../../components/usage/UsageFormModal.vue';
@@ -142,6 +128,8 @@ async function onRemove(row) {
         pageError.value = e.response?.data?.error || 'Delete failed';
     }
 }
+
+watch(() => filterSubscriberId.value, loadData);
 
 onMounted(loadData);
 </script>
