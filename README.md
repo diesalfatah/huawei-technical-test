@@ -346,13 +346,3 @@ function getTotalUsageMB(records) {
 Full write-up and demo: `/dashboard/fix-the-code`
 
 ---
-
-## Quick checklist for reviewers
-
-1. `nvm use` / Node 24
-2. `cd back-end && npm install &&` copy `.env` && `npm run dev`
-3. `cd front-end && npm install && npm run dev`
-4. Open `http://localhost:5173` → login `admin` / `admin123`
-5. (Optional) Import `postman-collection/postman.postman_collection.json` and smoke-test the APIs
-
-Thanks for reviewing.

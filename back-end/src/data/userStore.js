@@ -11,7 +11,6 @@ function findById(id) {
 }
 
 function toPublicUser(user) {
-    // never return the passwordHash
     return {
         id: user.id,
         username: user.username,
