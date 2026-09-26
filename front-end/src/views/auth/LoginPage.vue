@@ -51,7 +51,8 @@
                     </button>
 
                     <p class="text-xs text-slate-500">
-                        Demo: admin / admin123 &nbsp;|&nbsp; operator / op123456
+                        Demo: admin / admin123 &nbsp;|&nbsp; operator /
+                        operator123
                     </p>
                 </form>
             </div>

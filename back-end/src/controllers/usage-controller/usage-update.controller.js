@@ -5,7 +5,9 @@ function updateUsage(req, res) {
 
     if (!Number.isSafeInteger(id) || id <= 0) {
         return res.status(400).json({
-            error: 'ID must be a positive integer',
+            error: 'Invalid ID',
+            message: 'ID must be a positive integer',
+            status: 400,
         });
     }
 
@@ -13,7 +15,9 @@ function updateUsage(req, res) {
 
     if (!body || typeof body !== 'object' || Array.isArray(body)) {
         return res.status(400).json({
-            error: 'Request body must be a JSON object',
+            error: 'Invalid request body',
+            message: 'Request body must be a JSON object',
+            status: 400,
         });
     }
 
@@ -23,13 +27,17 @@ function updateUsage(req, res) {
 
     if (fields.length === 0) {
         return res.status(400).json({
-            error: 'Provide at least one field to update',
+            error: 'Invalid field(s)',
+            message: 'Provide at least one field to update',
+            status: 400,
         });
     }
 
     if (fields.some((field) => !allowedFields.includes(field))) {
         return res.status(400).json({
             error: 'Request contains a field that cannot be updated',
+            message: 'Only the following fields can be updated: subscriberId, callMinutes, smsCount, dataUsageMB',
+            status: 400,
         });
     }
 
@@ -41,7 +49,9 @@ function updateUsage(req, res) {
         if (field === 'subscriberId') {
             if (typeof value !== 'string' || value.trim() === '') {
                 return res.status(400).json({
-                    error: 'subscriberId must be a non-empty string',
+                    error: 'Invalid subscriberId',
+                    message: 'Subscriber ID must be a non-empty string',
+                    status: 400,
                 });
             }
 
@@ -49,13 +59,17 @@ function updateUsage(req, res) {
         } else {
             if (typeof value !== 'number' || !Number.isFinite(value) || value < 0) {
                 return res.status(400).json({
-                    error: `${field} must be a non-negative number`,
+                    error: `${field} is invalid`,
+                    message: `${field} must be a non-negative number`,
+                    status: 400,
                 });
             }
 
             if (field === 'smsCount' && !Number.isSafeInteger(value)) {
                 return res.status(400).json({
-                    error: 'smsCount must be a non-negative safe integer',
+                    error: 'Invalid SMS count',
+                    message: 'SMS count must be a non-negative safe integer',
+                    status: 400,
                 });
             }
 
@@ -68,10 +82,16 @@ function updateUsage(req, res) {
     if (!record) {
         return res.status(404).json({
             error: 'Usage record not found',
+            message: 'Usage record not found',
+            status: 404,
         });
     }
 
-    return res.status(200).json(record);
+    return res.status(200).json({
+        message: 'Usage record updated',
+        status: 200,
+        record,
+    });
 }
 
 module.exports = {

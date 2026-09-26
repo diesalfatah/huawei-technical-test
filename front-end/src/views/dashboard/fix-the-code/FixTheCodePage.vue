@@ -3,7 +3,7 @@
         <div class="card bg-base-100 shadow-sm">
             <div class="card-body gap-2">
                 <h2 class="card-title text-base">
-                    Q4 — Troubleshoot &amp; Explain
+                    Q4 : Troubleshoot &amp; Explain
                 </h2>
                 <p class="text-sm opacity-70">
                     This is my answer for the broken
@@ -95,11 +95,6 @@
                 <pre
                     class="bg-slate-900 text-slate-100 text-xs md:text-sm p-4 rounded-xl overflow-x-auto whitespace-pre-wrap"
                 ><code>{{ fixedCode }}</code></pre>
-
-                <p class="text-sm opacity-70">Shorter version (same idea):</p>
-                <pre
-                    class="bg-slate-900 text-slate-100 text-xs md:text-sm p-4 rounded-xl overflow-x-auto whitespace-pre-wrap"
-                ><code>{{ fixedCodeShort }}</code></pre>
             </div>
         </div>
 
@@ -114,20 +109,31 @@
                     .
                 </p>
 
-                <div class="flex flex-wrap gap-2">
-                    <button class="btn btn-error btn-sm" @click="runBroken">
-                        Run broken code
-                    </button>
-                    <button class="btn btn-success btn-sm" @click="runFixed">
-                        Run fixed code
-                    </button>
-                </div>
+                <!-- FIXED CODE -->
+                <p>Fixed Code</p>
+
+                <pre
+                    class="bg-slate-900 text-slate-100 text-xs md:text-sm p-4 rounded-xl overflow-x-auto whitespace-pre-wrap"
+                ><code>{{ fixedCode }}</code></pre>
+                <button class="btn btn-success btn-sm" @click="runFixed">
+                    Run fixed code
+                </button>
+
+                <!-- BROKEN CODE -->
+                <p>Broken Code</p>
+                <pre
+                    class="bg-slate-900 text-slate-100 text-xs md:text-sm p-4 rounded-xl overflow-x-auto whitespace-pre-wrap"
+                ><code>{{ brokenCode }}</code></pre>
+
+                <button class="btn btn-error btn-sm" @click="runBroken">
+                    Run broken code
+                </button>
+
+                <div class="flex flex-wrap gap-2"></div>
 
                 <p v-if="demoResult !== null" class="text-sm">
                     Result:
-                    <span class="badge badge-ghost badge-sm">{{
-                        demoLabel
-                    }}</span>
+
                     <code class="ml-1">{{ String(demoResult) }}</code>
                 </p>
             </div>
@@ -183,13 +189,7 @@ const brokenCode = `function getTotalUsageMB(records) {
 }`;
 
 const fixedCode = `function getTotalUsageMB(records) {
-  return records.reduce((total, record) => {
-    return total + record.dataUsageMB;
-  }, 0);
-}`;
-
-const fixedCodeShort = `function getTotalUsageMB(records) {
-  return records.reduce((total, record) => total + record.dataUsageMB, 0);
+    return records.reduce((total, record) => total + record.dataUsageMB, 0);
 }`;
 
 const loopAlternative = `function getTotalUsageMB(records) {

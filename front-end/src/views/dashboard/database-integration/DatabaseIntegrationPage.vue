@@ -3,7 +3,7 @@
         <div class="card bg-base-100 shadow-sm">
             <div class="card-body gap-2">
                 <h2 class="card-title text-base">
-                    Q3 — Subscriber &amp; Usage SQL
+                    Q3 : Subscriber &amp; Usage SQL
                 </h2>
                 <p class="text-sm opacity-70">
                     Static SQL answers with screenshot evidence from DB Browser.
@@ -46,10 +46,6 @@
                         listed on each card.
                     </li>
                 </ol>
-                <p class="text-xs opacity-60">
-                    Re-run <code>q3-setup.sql</code> anytime you want a clean
-                    database before capturing new screenshots.
-                </p>
             </div>
         </div>
 
@@ -115,16 +111,6 @@
 <script setup>
 import { reactive } from 'vue';
 
-/**
- * Drop screenshot files into: front-end/public/q3/
- * Use these exact filenames (png/jpg/webp ok if you also change imageFile).
- *
- * q3-1-insert-fajar.png
- * q3-2-update-fajar.png
- * q3-3-premium-total.png
- * q3-4-top3.png
- * q3-5-avg-call.png
- */
 const hiddenImages = reactive({});
 
 function onImageError(id) {

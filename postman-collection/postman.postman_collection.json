@@ -1,0 +1,1287 @@
+{
+  "info": {
+    "_postman_id": "879eb02f-3aa5-4955-bb27-93370e9d8077",
+    "name": "My Collection",
+    "description": "### Welcome to Postman! This is your first collection. \n\nCollections are your starting point for building and testing APIs. You can use this one to:\n\n• Group related requests\n• Test your API in real-world scenarios\n• Document and share your requests\n\nUpdate the name and overview whenever you’re ready to make it yours.\n\n[Learn more about Postman Collections.](https://learning.postman.com/docs/collections/collections-overview/)",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "_exporter_id": "58407094",
+    "_collection_link": "https://go.postman.co/collection/58407094-879eb02f-3aa5-4955-bb27-93370e9d8077?source=collection_link"
+  },
+  "item": [
+    {
+      "name": "huawei-technical-test",
+      "item": [
+        {
+          "name": "auth",
+          "item": [
+            {
+              "name": "Login (admin)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"admin123\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/auth/login",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Success response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"admin123\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/api/auth/login",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "auth",
+                        "login"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"token\": \"\",\r\n    \"user\": {\r\n        \"id\": 1,\r\n        \"username\": \"admin\",\r\n        \"role\": \"admin\"\r\n    }\r\n}"
+                },
+                {
+                  "name": "400 Missing",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/api/auth/login",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "auth",
+                        "login"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"error\": \"Missing username or password\"\r\n}"
+                },
+                {
+                  "name": "401 Invalid",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"username\":\"admin\",\r\n    \"password\":\"admin12\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/api/auth/login",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "auth",
+                        "login"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "\"error\": \"Invalid username or password\""
+                }
+              ]
+            },
+            {
+              "name": "Login (operator)",
+              "request": {
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"username\":\"operator\",\r\n    \"password\":\"\"\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/auth/login",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "auth",
+                    "login"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Success Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": ""
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": ""
+                },
+                {
+                  "name": "400 Missing",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"username\":\"operator\",\r\n    \"password\":\"\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": ""
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"error\": \"Missing username or password\"\r\n}"
+                },
+                {
+                  "name": "401 Invalid",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"username\":\"operator\",\r\n    \"password\":\"operator12\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": ""
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"error\": \"Invalid username or password\"\r\n}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "usage",
+          "item": [
+            {
+              "name": "Get All Usage Data",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/usage",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "usage"
+                  ],
+                  "query": [
+                    {
+                      "key": "subscriberId",
+                      "value": "SUB02",
+                      "disabled": true
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Success Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/api/usage",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "usage"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"message\": \"Usage records retrieved\",\r\n    \"status\": 200,\r\n    \"records\": [\r\n        {\r\n            \"id\": 1,\r\n            \"subscriberId\": \"SUB01\",\r\n            \"callMinutes\": 40,\r\n            \"smsCount\": 10,\r\n            \"dataUsageMB\": 1500,\r\n            \"timestamp\": \"2026-09-26T09:06:24.797Z\"\r\n        },\r\n        {\r\n            \"id\": 2,\r\n            \"subscriberId\": \"SUB02\",\r\n            \"callMinutes\": 90,\r\n            \"smsCount\": 20,\r\n            \"dataUsageMB\": 6000,\r\n            \"timestamp\": \"2026-09-26T09:06:24.797Z\"\r\n        },\r\n        {\r\n            \"id\": 3,\r\n            \"subscriberId\": \"SUB01\",\r\n            \"callMinutes\": 35,\r\n            \"smsCount\": 8,\r\n            \"dataUsageMB\": 1200,\r\n            \"timestamp\": \"2026-09-26T09:06:24.797Z\"\r\n        }\r\n    ]\r\n}"
+                }
+              ]
+            },
+            {
+              "name": "Get usage by subscriberId",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/usage?subscriberId=SUB03",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "usage"
+                  ],
+                  "query": [
+                    {
+                      "key": "subscriberId",
+                      "value": "SUB03"
+                    }
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Success Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/api/usage?subscriberId=SUB02",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "usage"
+                      ],
+                      "query": [
+                        {
+                          "key": "subscriberId",
+                          "value": "SUB02"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"message\": \"Usage records retrieved\",\r\n    \"status\": 200,\r\n    \"records\": [\r\n        {\r\n            \"id\": 2,\r\n            \"subscriberId\": \"SUB02\",\r\n            \"callMinutes\": 90,\r\n            \"smsCount\": 20,\r\n            \"dataUsageMB\": 6000,\r\n            \"timestamp\": \"2026-09-26T09:06:24.797Z\"\r\n        }\r\n    ]\r\n}"
+                },
+                {
+                  "name": "404 Not Found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/api/usage?subscriberId=SUB02",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "usage"
+                      ],
+                      "query": [
+                        {
+                          "key": "subscriberId",
+                          "value": "SUB02"
+                        }
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"error\": \"Record not found\",\r\n    \"message\": \"No usage records found\",\r\n    \"status\": 404\r\n}"
+                }
+              ]
+            },
+            {
+              "name": "Create usage",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"subscriberId\": \"SUB03\",\r\n    \"callMinutes\": 25,\r\n    \"dataUsageMB\": 800\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/usage",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "usage"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Success Response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"subscriberId\": \"SUB03\",\r\n    \"callMinutes\": 25,\r\n    \"smsCount\": 4,\r\n    \"dataUsageMB\": 800\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/api/usage",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "usage"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"message\": \"Usage record created\",\r\n    \"status\": 201,\r\n    \"record\": {\r\n        \"id\": 4,\r\n        \"subscriberId\": \"SUB03\",\r\n        \"callMinutes\": 25,\r\n        \"smsCount\": 4,\r\n        \"dataUsageMB\": 800,\r\n        \"timestamp\": \"2026-09-26T09:08:34.681Z\"\r\n    }\r\n}"
+                },
+                {
+                  "name": "400 Missing required field(s)",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"subscriberId\": \"SUB03\",\r\n    \"callMinutes\": 25,\r\n    \"dataUsageMB\": 800\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/api/usage",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "usage"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"error\": \"Required fields are missing\",\r\n    \"message\": \"Missing required fields\",\r\n    \"status\": 400\r\n}"
+                },
+                {
+                  "name": "401 Not logged in",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/api/usage",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "usage"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"error\": \"Missing or invalid token\"\r\n}"
+                }
+              ]
+            },
+            {
+              "name": "Update Usage Data",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PATCH",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n    \"callMinutes\": 67,\r\n    \"smsCount\": 21,\r\n    \"dataUsageMB\": 3000\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/usage/6",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "usage",
+                    "6"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Success Response",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"callMinutes\": 67,\r\n    \"smsCount\": 21,\r\n    \"dataUsageMB\": 3000\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/api/usage/1",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "usage",
+                        "1"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"message\": \"Usage record updated\",\r\n    \"status\": 200,\r\n    \"record\": {\r\n        \"id\": 1,\r\n        \"subscriberId\": \"SUB01\",\r\n        \"callMinutes\": 67,\r\n        \"smsCount\": 21,\r\n        \"dataUsageMB\": 3000,\r\n        \"timestamp\": \"2026-09-26T09:11:34.956Z\"\r\n    }\r\n}"
+                },
+                {
+                  "name": "400 Invalid field(s)",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "[{\r\n    \"subscriberId\" : \"hehehe\"\r\n}]",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/api/usage/1",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "usage",
+                        "1"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"error\": \"Invalid request body\",\r\n    \"message\": \"Request body must be a JSON object\",\r\n    \"status\": 400\r\n}"
+                },
+                {
+                  "name": "401 not logged in",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/api/usage/1",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "usage",
+                        "1"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"error\": \"Missing or invalid token\"\r\n}"
+                },
+                {
+                  "name": "404 usage id not found",
+                  "originalRequest": {
+                    "method": "PATCH",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n\"dataUsageMB\": 900\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/api/usage/6",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "usage",
+                        "6"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"error\": \"Usage record not found\",\r\n    \"message\": \"Usage record not found\",\r\n    \"status\": 404\r\n}"
+                }
+              ]
+            },
+            {
+              "name": "Delete Usage Data (admin only)",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "DELETE",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/usage/8",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "usage",
+                    "8"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Success Response",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"subscriberId\": \"SUB01\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/api/usage/3",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "usage",
+                        "3"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"message\": \"Usage record deleted\",\r\n    \"status\": 200\r\n}"
+                },
+                {
+                  "name": "400 invalid number",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"subscriberId\": \"SUB01\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/api/usage/-2",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "usage",
+                        "-2"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"error\": \"ID is invalid\",\r\n    \"message\": \"ID must be a positive integer\",\r\n    \"status\": 400\r\n}"
+                },
+                {
+                  "name": "403 not admin",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/api/usage/1",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "usage",
+                        "1"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"error\": \"Forbidden\"\r\n}"
+                },
+                {
+                  "name": "404 no record",
+                  "originalRequest": {
+                    "method": "DELETE",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n    \"subscriberId\": \"SUB01\"\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/api/usage/8",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "usage",
+                        "8"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"error\": \"Not found\",\r\n    \"message\": \"Usage record not found\",\r\n    \"status\": 404\r\n}"
+                }
+              ]
+            }
+          ]
+        },
+        {
+          "name": "snapshot",
+          "item": [
+            {
+              "name": "Get snapshots status",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/snapshots",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "snapshots"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Get snapshots status",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": ""
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"message\": \"Snapshots retrieved\",\r\n    \"status\": 200,\r\n    \"schedule\": {\r\n        \"cron\": \"0 8,12,15 * * *\",\r\n        \"timezone\": \"Asia/Jakarta\",\r\n        \"maxAgeDays\": 30,\r\n        \"defaults\": {\r\n            \"cron\": \"0 8,12,15 * * *\",\r\n            \"timezone\": \"Asia/Jakarta\",\r\n            \"maxAgeDays\": 30\r\n        }\r\n    },\r\n    \"lastRun\": {\r\n        \"status\": \"idle\",\r\n        \"at\": null,\r\n        \"fileName\": null,\r\n        \"message\": \"Waiting for the next schedule\"\r\n    },\r\n    \"files\": [\r\n        {\r\n            \"fileName\": \"usage-20260926-150000-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-26T08:00:00.023Z\"\r\n        },\r\n        {\r\n            \"fileName\": \"usage-20260926-020700-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-25T19:07:00.010Z\"\r\n        },\r\n        {\r\n            \"fileName\": \"usage-20260926-020600-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-25T19:06:00.016Z\"\r\n        },\r\n        {\r\n            \"fileName\": \"usage-20260926-015729-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-25T18:57:29.835Z\"\r\n        },\r\n        {\r\n            \"fileName\": \"usage-20260926-010212-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-25T18:02:12.903Z\"\r\n        },\r\n        {\r\n            \"fileName\": \"usage-20260925-232036-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-25T16:20:36.312Z\"\r\n        },\r\n        {\r\n            \"fileName\": \"usage-20260925-232004-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-25T16:20:04.743Z\"\r\n        }\r\n    ]\r\n}"
+                }
+              ]
+            },
+            {
+              "name": "Update schedule",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "PUT",
+                "header": [],
+                "body": {
+                  "mode": "raw",
+                  "raw": "{\r\n  \"cron\": \"not a cron\",\r\n  \"timezone\": \"Asia/Jakarta\",\r\n  \"maxAgeDays\": 30\r\n}",
+                  "options": {
+                    "raw": {
+                      "language": "json"
+                    }
+                  }
+                },
+                "url": {
+                  "raw": "{{base_url}}/api/snapshots/schedule",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "snapshots",
+                    "schedule"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Success Response",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"cron\": \"0 8,12,15 * * *\",\r\n  \"timezone\": \"Asia/Jakarta\",\r\n  \"maxAgeDays\": 30\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/api/snapshots/schedule",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "snapshots",
+                        "schedule"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"message\": \"Snapshot schedule updated\",\r\n    \"status\": 200,\r\n    \"schedule\": {\r\n        \"cron\": \"0 8,12,15 * * *\",\r\n        \"timezone\": \"Asia/Jakarta\",\r\n        \"maxAgeDays\": 30,\r\n        \"defaults\": {\r\n            \"cron\": \"0 8,12,15 * * *\",\r\n            \"timezone\": \"Asia/Jakarta\",\r\n            \"maxAgeDays\": 30\r\n        }\r\n    },\r\n    \"lastRun\": {\r\n        \"status\": \"idle\",\r\n        \"at\": null,\r\n        \"fileName\": null,\r\n        \"message\": \"Waiting for the next schedule\"\r\n    }\r\n}"
+                },
+                {
+                  "name": "400 Invalid",
+                  "originalRequest": {
+                    "method": "PUT",
+                    "header": [],
+                    "body": {
+                      "mode": "raw",
+                      "raw": "{\r\n  \"cron\": \"not a cron\",\r\n  \"timezone\": \"Asia/Jakarta\",\r\n  \"maxAgeDays\": 30\r\n}",
+                      "options": {
+                        "raw": {
+                          "language": "json"
+                        }
+                      }
+                    },
+                    "url": {
+                      "raw": "{{base_url}}/api/snapshots/schedule",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "snapshots",
+                        "schedule"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"error\": \"Invalid schedule\",\r\n    \"message\": \"Invalid cron expression\",\r\n    \"status\": 400\r\n}"
+                }
+              ]
+            },
+            {
+              "name": "Reset schedule",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/snapshots/schedule/reset",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "snapshots",
+                    "schedule",
+                    "reset"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Reset schedule",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/api/snapshots/schedule/reset",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "snapshots",
+                        "schedule",
+                        "reset"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"message\": \"Snapshot schedule reset to defaults\",\r\n    \"status\": 200,\r\n    \"schedule\": {\r\n        \"cron\": \"0 8,12,15 * * *\",\r\n        \"timezone\": \"Asia/Jakarta\",\r\n        \"maxAgeDays\": 30,\r\n        \"defaults\": {\r\n            \"cron\": \"0 8,12,15 * * *\",\r\n            \"timezone\": \"Asia/Jakarta\",\r\n            \"maxAgeDays\": 30\r\n        }\r\n    },\r\n    \"lastRun\": {\r\n        \"status\": \"idle\",\r\n        \"at\": null,\r\n        \"fileName\": null,\r\n        \"message\": \"Waiting for the next schedule\"\r\n    }\r\n}"
+                }
+              ]
+            },
+            {
+              "name": "Run snapshot now",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/snapshots/run",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "snapshots",
+                    "run"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Success Response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/api/snapshots/run",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "snapshots",
+                        "run"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"message\": \"Snapshot created\",\r\n    \"status\": 201,\r\n    \"lastRun\": {\r\n        \"status\": \"success\",\r\n        \"at\": \"2026-09-26T09:35:20.778Z\",\r\n        \"fileName\": \"usage-20260926-163520-WIB.csv\",\r\n        \"message\": \"Snapshot saved to usage-20260926-163520-WIB.csv\"\r\n    },\r\n    \"files\": [\r\n        {\r\n            \"fileName\": \"usage-20260926-163520-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-26T09:35:20.778Z\"\r\n        },\r\n        {\r\n            \"fileName\": \"usage-20260926-150000-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-26T08:00:00.023Z\"\r\n        },\r\n        {\r\n            \"fileName\": \"usage-20260926-020700-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-25T19:07:00.010Z\"\r\n        },\r\n        {\r\n            \"fileName\": \"usage-20260926-020600-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-25T19:06:00.016Z\"\r\n        },\r\n        {\r\n            \"fileName\": \"usage-20260926-015729-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-25T18:57:29.835Z\"\r\n        },\r\n        {\r\n            \"fileName\": \"usage-20260926-010212-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-25T18:02:12.903Z\"\r\n        },\r\n        {\r\n            \"fileName\": \"usage-20260925-232036-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-25T16:20:36.312Z\"\r\n        },\r\n        {\r\n            \"fileName\": \"usage-20260925-232004-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-25T16:20:04.743Z\"\r\n        }\r\n    ]\r\n}"
+                },
+                {
+                  "name": "500 Failed",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/api/snapshots/run",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "snapshots",
+                        "run"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"error\": \"Snapshot failed\",\r\n    \"message\": \"records is not iterable\",\r\n    \"status\": 500\r\n}"
+                }
+              ]
+            },
+            {
+              "name": "Cleanup old snapshots",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "POST",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/snapshots/cleanup",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "snapshots",
+                    "cleanup"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Success Response",
+                  "originalRequest": {
+                    "method": "POST",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/api/snapshots/cleanup",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "snapshots",
+                        "cleanup"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"message\": \"No old snapshot files to delete\",\r\n    \"status\": 200,\r\n    \"deleted\": 0,\r\n    \"maxAgeDays\": 30,\r\n    \"files\": [\r\n        {\r\n            \"fileName\": \"usage-20260926-163654-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-26T09:36:54.267Z\"\r\n        },\r\n        {\r\n            \"fileName\": \"usage-20260926-163526-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-26T09:35:26.725Z\"\r\n        },\r\n        {\r\n            \"fileName\": \"usage-20260926-163525-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-26T09:35:25.826Z\"\r\n        },\r\n        {\r\n            \"fileName\": \"usage-20260926-163520-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-26T09:35:20.778Z\"\r\n        },\r\n        {\r\n            \"fileName\": \"usage-20260926-150000-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-26T08:00:00.023Z\"\r\n        },\r\n        {\r\n            \"fileName\": \"usage-20260926-020700-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-25T19:07:00.010Z\"\r\n        },\r\n        {\r\n            \"fileName\": \"usage-20260926-020600-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-25T19:06:00.016Z\"\r\n        },\r\n        {\r\n            \"fileName\": \"usage-20260926-015729-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-25T18:57:29.835Z\"\r\n        },\r\n        {\r\n            \"fileName\": \"usage-20260926-010212-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-25T18:02:12.903Z\"\r\n        },\r\n        {\r\n            \"fileName\": \"usage-20260925-232036-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-25T16:20:36.312Z\"\r\n        },\r\n        {\r\n            \"fileName\": \"usage-20260925-232004-WIB.csv\",\r\n            \"size\": 225,\r\n            \"updatedAt\": \"2026-09-25T16:20:04.743Z\"\r\n        }\r\n    ]\r\n}"
+                },
+                {
+                  "name": "Success Response(Deleted)",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": ""
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "  \"message\": \"Deleted 10 old snapshot file(s)\",\r\n    \"status\": 200,\r\n    \"deleted\": 10,\r\n    \"maxAgeDays\": 0,\r\n    \"files\": []"
+                }
+              ]
+            },
+            {
+              "name": "Download snapshot file",
+              "request": {
+                "auth": {
+                  "type": "bearer",
+                  "bearer": [
+                    {
+                      "key": "token",
+                      "value": "",
+                      "type": "string"
+                    }
+                  ]
+                },
+                "method": "GET",
+                "header": [],
+                "url": {
+                  "raw": "{{base_url}}/api/snapshots/{{file_name}}",
+                  "host": [
+                    "{{base_url}}"
+                  ],
+                  "path": [
+                    "api",
+                    "snapshots",
+                    "{{file_name}}"
+                  ]
+                }
+              },
+              "response": [
+                {
+                  "name": "Success Response",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": "{{base_url}}/api/snapshots/{{file_name}}",
+                      "host": [
+                        "{{base_url}}"
+                      ],
+                      "path": [
+                        "api",
+                        "snapshots",
+                        "{{file_name}}"
+                      ]
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "id,subscriberId,callMinutes,smsCount,dataUsageMB,timestamp\r\n\"1\",\"SUB01\",\"40\",\"10\",\"1500\",\"2026-09-26T09:57:45.657Z\"\r\n\"2\",\"SUB02\",\"90\",\"20\",\"6000\",\"2026-09-26T09:57:45.657Z\"\r\n\"3\",\"SUB01\",\"35\",\"8\",\"1200\",\"2026-09-26T09:57:45.657Z\""
+                },
+                {
+                  "name": "400 Invalid Name",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": ""
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"error\": \"Invalid file name\",\r\n    \"message\": \"File name must match usage-YYYYMMDD-HHmmss-WIB.csv\",\r\n    \"status\": 400\r\n}"
+                },
+                {
+                  "name": "404 File Not Found",
+                  "originalRequest": {
+                    "method": "GET",
+                    "header": [],
+                    "url": {
+                      "raw": ""
+                    }
+                  },
+                  "status": "OK",
+                  "code": 200,
+                  "_postman_previewlanguage": "text",
+                  "header": null,
+                  "cookie": [],
+                  "body": "{\r\n    \"error\": \"File not found\",\r\n    \"message\": \"Snapshot file not found\",\r\n    \"status\": 404\r\n}"
+                }
+              ]
+            }
+          ]
+        }
+      ]
+    }
+  ]
+}

@@ -5,7 +5,9 @@ function deleteUsage(req, res) {
 
     if (!Number.isSafeInteger(id) || id <= 0) {
         return res.status(400).json({
-            error: 'ID must be a positive integer',
+            error: 'ID is invalid',
+            message: 'ID must be a positive integer',
+            status: 400,
         });
     }
 
@@ -13,11 +15,16 @@ function deleteUsage(req, res) {
 
     if (!deleted) {
         return res.status(404).json({
-            error: 'Usage record not found',
+            error: 'Not found',
+            message: 'Usage record not found',
+            status: 404,
         });
     }
 
-    return res.status(204).send();
+    return res.status(200).json({
+        message: 'Usage record deleted',
+        status: 200,
+    });
 }
 
 module.exports = {

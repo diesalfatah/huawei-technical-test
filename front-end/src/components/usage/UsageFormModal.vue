@@ -5,44 +5,49 @@
                 {{ isEdit ? 'Edit Usage' : 'Create Usage' }}
             </h3>
 
-            <label class="form-control">
-                <span class="label-text">Subscriber ID</span>
+            <fieldset class="fieldset">
+                <legend class="fieldset-legend">Subscriber ID</legend>
                 <input
                     v-model.trim="form.subscriberId"
-                    class="input input-bordered"
+                    type="text"
+                    class="input"
+                    placeholder="Input subscriber ID"
                     required
                 />
-            </label>
+            </fieldset>
 
-            <label class="form-control">
-                <span class="label-text">Call Minutes</span>
+            <fieldset class="fieldset">
+                <legend class="fieldset-legend">Call Minutes</legend>
                 <input
                     v-model.number="form.callMinutes"
                     type="number"
                     min="0"
-                    class="input input-bordered"
+                    class="input"
+                    placeholder="Input call minutes"
                 />
-            </label>
+            </fieldset>
 
-            <label class="form-control">
-                <span class="label-text">SMS Count</span>
+            <fieldset class="fieldset">
+                <legend class="fieldset-legend">SMS Count</legend>
                 <input
                     v-model.number="form.smsCount"
                     type="number"
                     min="0"
-                    class="input input-bordered"
+                    class="input"
+                    placeholder="Input SMS count"
                 />
-            </label>
+            </fieldset>
 
-            <label class="form-control">
-                <span class="label-text">Data Usage (MB)</span>
+            <fieldset class="fieldset">
+                <legend class="fieldset-legend">Data Usage (MB)</legend>
                 <input
-                    v-model.number="form.dataUsageMB"
+                    v-model.number="form.smsCount"
                     type="number"
                     min="0"
-                    class="input input-bordered"
+                    class="input"
+                    placeholder="Input data usage in MB"
                 />
-            </label>
+            </fieldset>
 
             <p v-if="error" class="text-red-600 text-sm">{{ error }}</p>
 

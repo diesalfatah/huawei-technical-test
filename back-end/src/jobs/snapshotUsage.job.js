@@ -3,7 +3,7 @@ const path = require('path');
 const axios = require('axios');
 
 const SNAPSHOT_DIR = path.join(__dirname, '../../snapshots');
-const API_URL = process.env.SNAPSHOT_API_URL || `http://127.0.0.1:${process.env.PORT || 3000}/api/usage`;
+const API_URL = process.env.SNAPSHOT_API_URL || 'http://localhost:3000/api/usage';
 
 function toCsv(records) {
     const headers = ['id', 'subscriberId', 'callMinutes', 'smsCount', 'dataUsageMB', 'timestamp'];
@@ -41,10 +41,17 @@ async function saveUsageSnapshot() {
     }
 
     const { data } = await axios.get(API_URL);
+    // GET /api/usage returns { message, status, records }
+    const records = Array.isArray(data) ? data : data?.records;
+
+    if (!Array.isArray(records)) {
+        throw new Error('Usage API did not return a records array');
+    }
+
     const fileName = buildFileName();
     const filePath = path.join(SNAPSHOT_DIR, fileName);
 
-    fs.writeFileSync(filePath, toCsv(data), 'utf8');
+    fs.writeFileSync(filePath, toCsv(records), 'utf8');
     console.log(`Snapshot saved: ${fileName}`);
     return filePath;
 }

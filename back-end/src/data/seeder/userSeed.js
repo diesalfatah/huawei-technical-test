@@ -1,7 +1,6 @@
 const bcrypt = require('bcryptjs');
 
 function createUserSeed() {
-    
     return [
         {
             id: 1,

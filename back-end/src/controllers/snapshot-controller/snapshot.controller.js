@@ -1,6 +1,7 @@
 const fs = require('fs');
 const path = require('path');
 const { SNAPSHOT_DIR } = require('../../jobs/snapshotUsage.job');
+const { cleanupSnapshots } = require('../../scripts/cleanupSnapshots');
 const jobs = require('../../jobs');
 
 function isSafeFileName(fileName) {
@@ -25,7 +26,9 @@ function listSnapshotFiles() {
 }
 
 function getSnapshots(req, res) {
-    res.json({
+    return res.status(200).json({
+        message: 'Snapshots retrieved',
+        status: 200,
         schedule: jobs.getSchedule(),
         lastRun: jobs.getLastRun(),
         files: listSnapshotFiles(),
@@ -35,42 +38,81 @@ function getSnapshots(req, res) {
 function updateSnapshotSchedule(req, res) {
     try {
         const schedule = jobs.updateSchedule(req.body || {});
-        res.json({ schedule, lastRun: jobs.getLastRun() });
+        return res.status(200).json({
+            message: 'Snapshot schedule updated',
+            status: 200,
+            schedule,
+            lastRun: jobs.getLastRun(),
+        });
     } catch (err) {
-        res.status(400).json({ error: err.message });
+        return res.status(400).json({
+            error: 'Invalid schedule',
+            message: err.message || 'Failed to update snapshot schedule',
+            status: 400,
+        });
     }
 }
 
 function resetSnapshotSchedule(req, res) {
     const schedule = jobs.resetSchedule();
-    res.json({ schedule, lastRun: jobs.getLastRun() });
+    return res.status(200).json({
+        message: 'Snapshot schedule reset to defaults',
+        status: 200,
+        schedule,
+        lastRun: jobs.getLastRun(),
+    });
 }
 
 async function runSnapshot(req, res) {
     try {
         const lastRun = await jobs.runSnapshotNow();
-        res.status(201).json({ lastRun, files: listSnapshotFiles() });
+        return res.status(201).json({
+            message: 'Snapshot created',
+            status: 201,
+            lastRun,
+            files: listSnapshotFiles(),
+        });
     } catch (err) {
-        res.status(500).json({ error: err.message || 'Snapshot failed' });
+        return res.status(500).json({
+            error: 'Snapshot failed',
+            message: err.message || 'Snapshot failed',
+            status: 500,
+        });
     }
 }
 
 function cleanupSnapshotFiles(req, res) {
     const { maxAgeDays } = jobs.getSchedule();
     const result = cleanupSnapshots(maxAgeDays);
-    res.json({ ...result, maxAgeDays, files: listSnapshotFiles() });
+
+    return res.status(200).json({
+        message:
+            result.deleted > 0 ? `Deleted ${result.deleted} old snapshot file(s)` : 'No old snapshot files to delete',
+        status: 200,
+        deleted: result.deleted,
+        maxAgeDays,
+        files: listSnapshotFiles(),
+    });
 }
 
 function downloadSnapshot(req, res) {
     const fileName = req.params.fileName;
 
     if (!isSafeFileName(fileName)) {
-        return res.status(400).json({ error: 'Invalid file name' });
+        return res.status(400).json({
+            error: 'Invalid file name',
+            message: 'File name must match usage-YYYYMMDD-HHmmss-WIB.csv',
+            status: 400,
+        });
     }
 
     const filePath = path.join(SNAPSHOT_DIR, fileName);
     if (!fs.existsSync(filePath)) {
-        return res.status(404).json({ error: 'File not found' });
+        return res.status(404).json({
+            error: 'File not found',
+            message: 'Snapshot file not found',
+            status: 404,
+        });
     }
 
     return res.download(filePath, fileName);
